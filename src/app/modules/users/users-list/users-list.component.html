@@ -1,0 +1,60 @@
+<div class="container-fluid">
+    <div class="row">
+        <div style="height: 92vh;" class="col-lg-1 bg-dark d-flex flex-column p-3">
+            <a class="mb-3 fw-bolder" style="text-decoration: none;color: white;" routerLink="/dashboard">Home</a>
+            <a class="fw-bolder" style="text-decoration: none;color: white;" routerLink="/users">Users</a>
+        </div>
+        <div class="col">
+            <div class="d-flex justify-content-between mt-3">
+                <h1 class="fw-bolder">All Users List</h1>
+                <button routerLink="/users/add" class="btn btn-primary"><i class="fa-solid fa-user-plus me-1"></i>New User</button>
+            </div>
+            <div class="mt-5 d-flex justify-content-between">
+                <!--Search-->
+                <div class="d-flex align-items-center">
+                    <span class="'fw-bolder">Search</span>
+                    <input style="width: 500px;" type="text" class="form-control ms-3" placeholder="Search by username">
+                </div>
+                <!--Dropdown-->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Sort
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><button class="dropdown-item" >Sort by Id</button></li>
+                      <li><button class="dropdown-item" >Sort by Name</button></li>
+                    </ul>
+                </div>
+                <!--Export-->
+                <button class="btn btn-success">Export</button>
+            </div>
+            <div class="mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Emp Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>...</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Emp 100</td>
+                            <td>Max</td>
+                            <td>max@gmail.com</td>
+                            <td>Active</td>
+                            <td>
+                                <button routerLink="/users/10/edit" class="btn text-primary"><i class="fa-solid fa-edit"></i></button>
+                                <button class="btn text-danger"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
