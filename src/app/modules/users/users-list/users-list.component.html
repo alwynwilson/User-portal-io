@@ -13,7 +13,7 @@
                 <!--Search-->
                 <div class="d-flex align-items-center">
                     <span class="'fw-bolder">Search</span>
-                    <input style="width: 500px;" type="text" class="form-control ms-3" placeholder="Search by username">
+                    <input [(ngModel)]="searchKey" style="width: 500px;" type="text" class="form-control ms-3" placeholder="Search by username">
                 </div>
                 <!--Dropdown-->
                 <div class="dropdown">
@@ -21,12 +21,12 @@
                       Sort
                     </button>
                     <ul class="dropdown-menu">
-                      <li><button class="dropdown-item" >Sort by Id</button></li>
-                      <li><button class="dropdown-item" >Sort by Name</button></li>
+                      <li><button (click)="sortById()" class="dropdown-item" >Sort by Id</button></li>
+                      <li><button (click)="sortByName()" class="dropdown-item" >Sort by Name</button></li>
                     </ul>
                 </div>
                 <!--Export-->
-                <button class="btn btn-success">Export</button>
+                <button (click)="generatePDF()" class="btn btn-success">Export</button>
             </div>
             <div class="mt-5">
                 <table class="table">
@@ -41,19 +41,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Emp 100</td>
-                            <td>Max</td>
-                            <td>max@gmail.com</td>
-                            <td>Active</td>
+                        <tr *ngFor="let user of allUsers | search :searchKey | paginate: { itemsPerPage: 4, currentPage: p }; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{user.id}}</td>
+                            <td>{{user.name}}</td>
+                            <td>{{user.email}}</td>
+                            <td><span [ngClass]="user.status=='1'?'btn btn-success':'btn btn-warning'">{{user.status=="1"?"Active":"InActive"}}</span></td>
                             <td>
-                                <button routerLink="/users/10/edit" class="btn text-primary"><i class="fa-solid fa-edit"></i></button>
-                                <button class="btn text-danger"><i class="fa-solid fa-trash"></i></button>
+                                <button routerLink="/users/{{user.id}}/edit" class="btn text-primary"><i class="fa-solid fa-edit"></i></button>
+                                <button (click)="removeUser(user.id)" class="btn text-danger"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
+                        <tr *ngIf="(allUsers | search:searchKey).length==0" class="fw-bolder text-danger">User not found !!</tr>
                     </tbody>
                 </table>
+                <div class="mt-2 text-center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
             </div>
         </div>
     </div>

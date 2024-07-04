@@ -7,7 +7,7 @@ import { Router } from '@angular/router'
 })
 export class AdminService {
 
-  serverUrl = "http://localhost:3000"
+  serverUrl = "https://user-server-io.onrender.com"
   constructor(private http:HttpClient,private router:Router) { }
 
   loginAPI(email:any,password:any){
@@ -23,4 +23,16 @@ export class AdminService {
       }
     })
   }
+
+  getAdminDetailsAPI(){
+    return this.http.get(`${this.serverUrl}/users/1`)
+  }
+
+  editAdminAPI(adminDetails:any){
+    return this.http.put(`${this.serverUrl}/users/1`,adminDetails)
+  }
+
+isLoggedin(){
+  return !!sessionStorage.getItem("admin")
+}
 }

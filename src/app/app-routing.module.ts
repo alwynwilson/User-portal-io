@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
 
   //http://localhost:4200/users
   { 
-    path: 'users', loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)
+    path: 'users', canActivate:[authGuard], loadChildren: () => import('./modules/users/users.module').then(m => m.UsersModule)
   },
   //http://localhost:4200
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
   },
   //http://localhost:4200/dashboard
   {
-    path:'dashboard', component:DashboardComponent
+    path:'dashboard',canActivate:[authGuard], component:DashboardComponent
   }
 ];
 
